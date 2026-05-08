@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HarvestLink Aurora — Farm to Market Digital Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep: #1a3d1f;
+  --green-mid: #2d6a35;
+  --green-light: #4a9e55;
+  --green-pale: #c8e6cc;
+  --green-mist: #f0f7f1;
+  --amber: #e8a022;
+  --amber-light: #fdf3e0;
+  --earth: #5c3d1e;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-mid: #4a4a4a;
+  --text-light: #7a7a7a;
+  --shadow-sm: 0 2px 12px rgba(26,61,31,0.08);
+  --shadow-md: 0 8px 32px rgba(26,61,31,0.12);
+  --shadow-lg: 0 20px 60px rgba(26,61,31,0.16);
+  --radius: 16px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  background: rgba(250,248,243,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(74,158,85,0.12);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: var(--shadow-sm); }
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 36px; height: 36px;
+  background: var(--green-mid);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--green-deep);
+}
+.nav-logo-sub {
+  font-size: 10px; font-weight: 500;
+  color: var(--green-light);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  display: block; margin-top: -2px;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--green-mid); }
+
+.nav-cta {
+  background: var(--green-mid);
+  color: white !important;
+  padding: 9px 20px;
+  border-radius: 100px;
+  font-size: 14px !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: var(--green-deep) !important; transform: translateY(-1px); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 5% 60px;
+  gap: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(74,158,85,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,230,204,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--amber-light);
+  border: 1px solid rgba(232,160,34,0.3);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px; font-weight: 600;
+  color: var(--earth);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge::before { content: "🌾"; }
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.08;
+  color: var(--green-deep);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--green-light);
+}
+
+.hero-desc {
+  font-size: 17px; font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-mid);
+  max-width: 480px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--green-mid);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(45,106,53,0.3);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover {
+  background: var(--green-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(45,106,53,0.35);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--green-mid);
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid var(--green-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover {
+  background: var(--green-mist);
+  border-color: var(--green-mid);
+}
+
+.hero-stats {
+  display: flex; gap: 32px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(74,158,85,0.15);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.stat-item {}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--green-deep);
+  display: block;
+}
+.stat-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--text-light);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* Hero right — phone mockup */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.phone-frame {
+  width: 280px; height: 560px;
+  background: var(--green-deep);
+  border-radius: 44px;
+  padding: 12px;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,0.05);
+  position: relative;
+  z-index: 2;
+}
+.phone-screen {
+  width: 100%; height: 100%;
+  background: var(--cream);
+  border-radius: 34px;
+  overflow: hidden;
+  position: relative;
+}
+.phone-notch {
+  width: 80px; height: 22px;
+  background: var(--green-deep);
+  border-radius: 0 0 14px 14px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.phone-content {
+  padding: 8px 16px 16px;
+}
+.phone-header {
+  font-size: 11px; font-weight: 600;
+  color: var(--green-mid);
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+}
+.phone-greeting {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--green-deep);
+  margin-bottom: 4px;
+}
+.phone-sub {
+  font-size: 11px; color: var(--text-light);
+  margin-bottom: 14px;
+}
+
+.phone-listing {
+  background: white;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.listing-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.listing-icon.coconut { background: #fff3e0; }
+.listing-icon.fish { background: #e3f2fd; }
+.listing-icon.rice { background: #f3e5f5; }
+.listing-info { flex: 1; }
+.listing-name { font-size: 12px; font-weight: 600; color: var(--text-dark); }
+.listing-qty { font-size: 10px; color: var(--text-light); }
+.listing-price {
+  font-size: 12px; font-weight: 700;
+  color: var(--green-mid);
+}
+
+.phone-earn-card {
+  background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 12px;
+  color: white;
+}
+.earn-label { font-size: 10px; opacity: 0.8; margin-bottom: 4px; }
+.earn-amount { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; }
+.earn-sub { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+
+.floating-card {
+  position: absolute;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-md);
+  font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+  z-index: 3;
+}
+.fc-1 { top: 80px; right: -20px; animation: float 3s ease-in-out infinite; }
+.fc-2 { bottom: 100px; left: -30px; animation: float 3s 1.5s ease-in-out infinite; }
+.fc-dot { width: 8px; height: 8px; border-radius: 50%; }
+.fc-dot.green { background: #4CAF50; }
+.fc-dot.amber { background: var(--amber); }
+
+.hero-leaves {
+  position: absolute; right: 5%; top: 15%;
+  font-size: 80px; opacity: 0.06;
+  user-select: none; pointer-events: none;
+  transform: rotate(15deg);
+}
+
+/* ── SECTIONS ── */
+section { padding: 100px 5%; }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  color: var(--green-light);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.section-tag::before {
+  content: "";
+  width: 24px; height: 2px;
+  background: var(--green-light);
+  display: block;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 800;
+  color: var(--green-deep);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 16px; line-height: 1.7;
+  color: var(--text-mid);
+  max-width: 540px;
+}
+
+/* ── HOW IT WORKS ── */
+#how {
+  background: var(--green-mist);
+  position: relative;
+  overflow: hidden;
+}
+#how::before {
+  content: "";
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(74,158,85,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.steps-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+.steps-header .section-tag { justify-content: center; }
+.steps-header .section-tag::before { display: none; }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.steps-grid::before {
+  content: "";
+  position: absolute;
+  top: 36px; left: 12.5%; right: 12.5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green-pale), var(--green-light), var(--green-pale));
+  z-index: 0;
+}
+
+.step-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  position: relative; z-index: 1;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.step-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+.step-num {
+  width: 56px; height: 56px;
+  background: var(--green-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 20px;
+  border: 4px solid var(--green-mist);
+}
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--green-deep);
+  margin-bottom: 10px;
+}
+.step-desc { font-size: 13px; line-height: 1.6; color: var(--text-mid); }
+
+/* ── PRODUCTS / MARKETPLACE ── */
+#marketplace {}
+
+.marketplace-layout {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 80px; align-items: center;
+}
+
+.filter-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.filter-tab {
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid var(--green-pale);
+  background: transparent;
+  color: var(--text-mid);
+  transition: all 0.2s;
+}
+.filter-tab.active, .filter-tab:hover {
+  background: var(--green-mid);
+  border-color: var(--green-mid);
+  color: white;
+}
+
+.products-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.product-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 1.5px solid transparent;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-pale);
+}
+.product-img {
+  height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+}
+.product-img.bg1 { background: linear-gradient(135deg, #fff8e1, #fff3cd); }
+.product-img.bg2 { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.product-img.bg3 { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.product-img.bg4 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.product-img.bg5 { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+.product-img.bg6 { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); }
+.product-body { padding: 14px; }
+.product-name { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+.product-farmer { font-size: 11px; color: var(--text-light); margin-bottom: 8px; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; }
+.product-price { font-size: 15px; font-weight: 700; color: var(--green-mid); }
+.product-unit { font-size: 10px; color: var(--text-light); font-weight: 400; }
+.product-btn {
+  width: 28px; height: 28px;
+  background: var(--green-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 16px;
+  cursor: pointer; border: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.product-btn:hover { background: var(--green-deep); transform: scale(1.1); }
+
+.product-badge {
+  display: inline-block;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.badge-fresh { background: #e8f5e9; color: #2e7d32; }
+.badge-organic { background: #fff8e1; color: #f57f17; }
+.badge-new { background: #e3f2fd; color: #1565c0; }
+
+/* ── FARMERS ── */
+#farmers {
+  background: var(--green-deep);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+#farmers::after {
+  content: "🌿";
+  position: absolute;
+  font-size: 200px;
+  right: -20px; bottom: -40px;
+  opacity: 0.06;
+  transform: rotate(-20deg);
+  pointer-events: none;
+}
+
+#farmers .section-tag { color: var(--green-pale); }
+#farmers .section-tag::before { background: var(--green-pale); }
+#farmers .section-title { color: white; }
+#farmers .section-desc { color: rgba(255,255,255,0.7); }
+
+.farmers-layout {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 80px; align-items: center;
+}
+
+.benefits-list { margin-top: 40px; }
+.benefit-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  margin-bottom: 28px;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+.benefit-item:hover { background: rgba(255,255,255,0.05); }
+.benefit-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: rgba(74,158,85,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.benefit-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.benefit-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+.income-calculator {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 32px;
+  backdrop-filter: blur(8px);
+}
+.calc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  margin-bottom: 24px;
+  color: white;
+}
+.calc-row {
+  margin-bottom: 20px;
+}
+.calc-label {
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 8px; display: flex; justify-content: space-between;
+}
+.calc-label span { color: var(--green-pale); font-weight: 600; }
+.calc-slider {
+  width: 100%;
+  appearance: none; -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.2);
+  outline: none;
+  cursor: pointer;
+}
+.calc-slider::-webkit-slider-thumb {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--green-light);
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.calc-result {
+  background: rgba(74,158,85,0.15);
+  border: 1px solid rgba(74,158,85,0.3);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-top: 24px;
+  text-align: center;
+}
+.calc-result-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+.calc-result-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--green-pale);
+}
+.calc-result-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.calc-comparison {
+  display: flex; gap: 12px; margin-top: 14px;
+}
+.comp-item {
+  flex: 1; padding: 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+.comp-val { font-size: 16px; font-weight: 700; }
+.comp-label { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.comp-item.better .comp-val { color: #81C784; }
+.comp-item.worse .comp-val { color: rgba(255,255,255,0.4); text-decoration: line-through; }
+
+/* ── TESTIMONIALS ── */
+#testimonials {
+  background: var(--green-mist);
+}
+
+.testimonials-header { text-align: center; max-width: 560px; margin: 0 auto 56px; }
+.testimonials-header .section-tag { justify-content: center; }
+.testimonials-header .section-tag::before { display: none; }
+
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testi-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); }
+.testi-stars { color: var(--amber); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-quote {
+  font-size: 14px; line-height: 1.7;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.testi-loc { font-size: 12px; color: var(--text-light); }
+
+/* ── CONTACT / REGISTER ── */
+#register {
+  background: white;
+}
+
+.register-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--green-pale);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--green-mid);
+  box-shadow: 0 0 0 3px rgba(45,106,53,0.1);
+  background: white;
+}
+.form-textarea { resize: vertical; min-height: 100px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.role-selector {
+  display: flex; gap: 12px;
+}
+.role-option {
+  flex: 1;
+  border: 1.5px solid var(--green-pale);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.role-option.selected {
+  border-color: var(--green-mid);
+  background: var(--green-mist);
+}
+.role-icon { font-size: 24px; margin-bottom: 6px; }
+.role-label { font-size: 12px; font-weight: 600; color: var(--text-mid); }
+
+.form-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--green-mid);
+  color: white;
+  border: none; border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 8px;
+}
+.form-submit:hover { background: var(--green-deep); transform: translateY(-1px); }
+
+.success-msg {
+  display: none;
+  background: var(--green-mist);
+  border: 1px solid var(--green-pale);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin-top: 16px;
+}
+.success-msg.show { display: block; }
+.success-icon { font-size: 40px; margin-bottom: 12px; }
+.success-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--green-deep); margin-bottom: 8px; }
+.success-desc { font-size: 14px; color: var(--text-mid); }
+
+.contact-info { padding-top: 8px; }
+.contact-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--green-deep);
+  margin-bottom: 16px;
+}
+.contact-info p {
+  font-size: 15px; line-height: 1.7;
+  color: var(--text-mid); margin-bottom: 32px;
+}
+.contact-item {
+  display: flex; gap: 14px; align-items: center;
+  margin-bottom: 20px;
+}
+.contact-icon {
+  width: 44px; height: 44px;
+  background: var(--green-mist);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.contact-detail { font-size: 14px; color: var(--text-mid); line-height: 1.5; }
+.contact-detail strong { color: var(--text-dark); display: block; font-size: 13px; }
+
+.coverage-map {
+  background: var(--green-mist);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 32px;
+}
+.coverage-title { font-size: 13px; font-weight: 700; color: var(--green-deep); margin-bottom: 14px; }
+.muni-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.muni-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-mid);
+}
+.muni-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.muni-dot.t1 { background: var(--green-mid); }
+.muni-dot.t2 { background: var(--amber); }
+.muni-dot.t3 { background: var(--green-pale); border: 1px solid var(--green-light); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--green-deep);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 5% 32px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer-brand .nav-logo-text { color: white; font-size: 20px; }
+.footer-brand .nav-logo-sub { color: var(--green-pale); }
+.footer-desc { font-size: 13px; line-height: 1.7; margin-top: 12px; }
+.footer-col h4 {
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--green-pale);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+}
+.footer-tagline { color: var(--green-pale); font-style: italic; font-size: 13px; }
+
+/* ── CART NOTIFICATION ── */
+.cart-toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--green-deep);
+  color: white;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(80px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 999;
+  display: flex; align-items: center; gap: 10px;
+}
+.cart-toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── MOBILE NAV TOGGLE ── */
+.nav-toggle {
+  display: none;
+  background: none; border: none;
+  font-size: 24px; cursor: pointer;
+  color: var(--green-deep);
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 4%; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 72px; left: 0; right: 0;
+    background: rgba(250,248,243,0.98);
+    backdrop-filter: blur(12px);
+    padding: 24px 5%;
+    gap: 20px;
+    border-bottom: 1px solid var(--green-pale);
+  }
+  .nav-toggle { display: block; }
+  #hero { grid-template-columns: 1fr; padding: 100px 4% 60px; }
+  .hero-visual { display: none; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid::before { display: none; }
+  .marketplace-layout, .farmers-layout, .register-layout { grid-template-columns: 1fr; gap: 40px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🌿</div>
+    <div>
+      <span class="nav-logo-text">HarvestLink</span>
+      <span class="nav-logo-sub">Aurora Province</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#marketplace">Marketplace</a></li>
+    <li><a href="#farmers">For Farmers</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#register" class="nav-cta">Join Free</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-leaves">🌾</div>
+
+  <div class="hero-text">
+    <div class="hero-badge">Aurora Province's #1 AgriTech Platform</div>
+    <h1 class="hero-title">
+      From Aurora's<br><em>fields</em> to your<br>table, directly.
+    </h1>
+    <p class="hero-desc">
+      HarvestLink connects Aurora's farmers and fisherfolk directly to buyers across the Philippines — cutting middlemen, raising incomes, and bringing fresh Pacific-coast produce to your doorstep.
+    </p>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">Start Selling Free →</a>
+      <a href="#marketplace" class="btn-secondary">Browse Produce</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Municipalities</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">+45%</span>
+        <span class="stat-label">Avg. Income Gain</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100+</span>
+        <span class="stat-label">Farm Listings</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="floating-card fc-1">
+      <div class="fc-dot green"></div>
+      New order — 15kg Tuna
+    </div>
+    <div class="floating-card fc-2">
+      <div class="fc-dot amber"></div>
+      ₱2,400 payment sent
+    </div>
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="phone-header">HARVESTLINK AURORA</div>
+          <div class="phone-greeting">Magandang umaga, Juan! 👋</div>
+          <div class="phone-sub">3 new orders waiting</div>
+
+          <div class="phone-listing">
+            <div class="listing-icon coconut">🥥</div>
+            <div class="listing-info">
+              <div class="listing-name">Virgin Coconut Oil</div>
+              <div class="listing-qty">Casiguran · 20 bottles</div>
+            </div>
+            <div class="listing-price">₱320</div>
+          </div>
+
+          <div class="phone-listing">
+            <div class="listing-icon fish">🐟</div>
+            <div class="listing-info">
+              <div class="listing-name">Fresh Yellowfin Tuna</div>
+              <div class="listing-qty">Baler · 50 kg available</div>
+            </div>
+            <div class="listing-price">₱200/kg</div>
+          </div>
+
+          <div class="phone-listing">
+            <div class="listing-icon rice">🌾</div>
+            <div class="listing-info">
+              <div class="listing-name">Sinandomeng Rice</div>
+              <div class="listing-qty">Dipaculao · 500 kg</div>
+            </div>
+            <div class="listing-price">₱52/kg</div>
+          </div>
+
+          <div class="phone-earn-card">
+            <div class="earn-label">This Month's Earnings</div>
+            <div class="earn-amount">₱18,450</div>
+            <div class="earn-sub">↑ 42% vs middleman rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="steps-header reveal">
+    <div class="section-tag">Simple Process</div>
+    <h2 class="section-title">How HarvestLink Works</h2>
+    <p class="section-desc" style="margin: 0 auto;">From your farm in Aurora to a buyer's kitchen in Metro Manila — in four simple steps.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">🌱</div>
+      <div class="step-title">Register Your Farm</div>
+      <p class="step-desc">Sign up free via app or SMS. Verify your farm location in Baler, Casiguran, Dipaculao, or any of Aurora's 8 municipalities.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">📦</div>
+      <div class="step-title">List Your Produce</div>
+      <p class="step-desc">Upload photos, set your price, and publish your harvest. Reach verified buyers in Metro Manila, Cabanatuan, and beyond instantly.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">🤝</div>
+      <div class="step-title">Receive Orders</div>
+      <p class="step-desc">Get notified via app or SMS. Confirm orders, coordinate pickup with our logistics partners, and prepare your goods.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">💸</div>
+      <div class="step-title">Get Paid Instantly</div>
+      <p class="step-desc">Payment via GCash or bank transfer within 24 hours of delivery confirmation. No waiting, no haggling, no middlemen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section id="marketplace">
+  <div class="marketplace-layout">
+    <div class="reveal">
+      <div class="section-tag">Fresh From Aurora</div>
+      <h2 class="section-title">Aurora's Finest Produce</h2>
+      <p class="section-desc">Traceable, fresh, and priced fairly. Every product listed is sourced directly from Aurora's farms and fishing communities.</p>
+      <br>
+      <a href="#register" class="btn-primary" style="display: inline-flex;">Shop All Products →</a>
+
+      <div style="margin-top: 40px; padding: 20px; background: var(--green-mist); border-radius: var(--radius);">
+        <div style="font-size: 13px; font-weight: 700; color: var(--green-deep); margin-bottom: 12px;">📍 Municipality Filter</div>
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab active" data-filter="all">All Aurora</button>
+          <button class="filter-tab" data-filter="baler">Baler</button>
+          <button class="filter-tab" data-filter="casiguran">Casiguran</button>
+          <button class="filter-tab" data-filter="dipaculao">Dipaculao</button>
+          <button class="filter-tab" data-filter="dingalan">Dingalan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="products-grid" id="productsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FARMERS -->
+<section id="farmers">
+  <div class="farmers-layout">
+    <div class="reveal">
+      <div class="section-tag">For Farmers & Fisherfolk</div>
+      <h2 class="section-title">Earn more from every harvest</h2>
+      <p class="section-desc">Aurora's farmers lose 40–60% of their income to middlemen. HarvestLink puts that money back in your hands.</p>
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-icon">📱</div>
+          <div>
+            <div class="benefit-title">Works Without Internet</div>
+            <div class="benefit-desc">Our offline-capable app and SMS fallback means you can manage orders even in remote barangays with weak signal.</div>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">💳</div>
+          <div>
+            <div class="benefit-title">Same-Day GCash Payment</div>
+            <div class="benefit-desc">No more waiting weeks for payment. Get paid within 24 hours of delivery via GCash, Maya, or direct bank transfer.</div>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🛡️</div>
+          <div>
+            <div class="benefit-title">Typhoon Early Warning</div>
+            <div class="benefit-desc">Receive PAGASA-linked alerts 48–72 hours before storms so you can harvest and protect your crops in time.</div>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📊</div>
+          <div>
+            <div class="benefit-title">Live Market Price Feed</div>
+            <div class="benefit-desc">See real-time prices in Metro Manila and Cabanatuan markets — so you always know exactly what your produce is worth.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="income-calculator">
+        <div class="calc-title">💰 Income Calculator</div>
+        <div class="calc-row">
+          <div class="calc-label">Monthly harvest volume (kg) <span id="volVal">200</span></div>
+          <input type="range" class="calc-slider" id="volSlider" min="50" max="1000" step="50" value="200">
+        </div>
+        <div class="calc-row">
+          <div class="calc-label">Product type <span id="prodVal">Coconut</span></div>
+          <input type="range" class="calc-slider" id="prodSlider" min="0" max="4" step="1" value="0">
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-label">Your estimated monthly income on HarvestLink</div>
+          <div class="calc-result-num" id="calcResult">₱6,000</div>
+          <div class="calc-result-sub">vs. ₱3,600 through middlemen</div>
+        </div>
+        <div class="calc-comparison">
+          <div class="comp-item better">
+            <div class="comp-val" id="hlIncome">₱6,000</div>
+            <div class="comp-label">via HarvestLink</div>
+          </div>
+          <div class="comp-item worse">
+            <div class="comp-val" id="mmIncome">₱3,600</div>
+            <div class="comp-label">via middleman</div>
+          </div>
+          <div class="comp-item">
+            <div class="comp-val" id="gainPct" style="color: #81C784;">+67%</div>
+            <div class="comp-label">income gain</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header reveal">
+    <div class="section-tag">Real Farmers, Real Stories</div>
+    <h2 class="section-title">Voices from Aurora</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Dati, ibinebenta ko ang niyog ko sa mababang presyo sa bodega. Ngayon, direkta na ako sa mga buyers sa Maynila. Tumaas ang kita ko ng halos 50 porsyento sa loob ng tatlong buwan."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e8f5e9;">🧑‍🌾</div>
+        <div>
+          <div class="testi-name">Mang Rodel Santos</div>
+          <div class="testi-loc">Coconut Farmer · Casiguran</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"As a restaurant owner in Quezon City, I love knowing exactly where my seafood comes from. The tuna from Baler is exceptionally fresh, and I get it two days after harvest. Incredible."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e3f2fd;">👨‍🍳</div>
+        <div>
+          <div class="testi-name">Chef Marco Villanueva</div>
+          <div class="testi-loc">Restaurant Owner · Quezon City</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Noong Bagyong Egay, natanggap ko ang alert 60 oras bago dumating. Nakaharvest pa ako ng malaking bahagi ng ani ko. Nakatipid ako ng tinatayang ₱15,000."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#fff8e1;">👩‍🌾</div>
+        <div>
+          <div class="testi-name">Nanay Cora Dizon</div>
+          <div class="testi-loc">Rice Farmer · Dipaculao</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER / CONTACT -->
+<section id="register">
+  <div style="text-align: center; margin-bottom: 64px;" class="reveal">
+    <div class="section-tag" style="justify-content: center;">
+      <style>.section-tag-c::before { display: none; }</style>
+    </div>
+    <h2 class="section-title">Join HarvestLink Aurora Today</h2>
+    <p class="section-desc" style="margin: 0 auto; max-width: 480px;">Whether you're a farmer in Dingalan or a restaurant in BGC — sign up free and start connecting in minutes.</p>
+  </div>
+  <div class="register-layout">
+    <div class="reveal">
+      <form id="registerForm">
+        <div class="form-group">
+          <label class="form-label">I want to join as a...</label>
+          <div class="role-selector">
+            <div class="role-option selected" data-role="farmer" onclick="selectRole('farmer', this)">
+              <div class="role-icon">🧑‍🌾</div>
+              <div class="role-label">Farmer / Fisherfolk</div>
+            </div>
+            <div class="role-option" data-role="buyer" onclick="selectRole('buyer', this)">
+              <div class="role-icon">🛒</div>
+              <div class="role-label">Buyer / Restaurant</div>
+            </div>
+            <div class="role-option" data-role="cooperative" onclick="selectRole('cooperative', this)">
+              <div class="role-icon">🏘️</div>
+              <div class="role-label">Cooperative</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Juan" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="dela Cruz" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input type="tel" class="form-input" placeholder="09XX XXX XXXX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Municipality</label>
+          <select class="form-select">
+            <option value="">Select municipality...</option>
+            <option>Baler (Capital)</option>
+            <option>Casiguran</option>
+            <option>Dilasag</option>
+            <option>Dinalungan</option>
+            <option>Dingalan</option>
+            <option>Dipaculao</option>
+            <option>Maria Aurora</option>
+            <option>San Luis</option>
+            <option>Outside Aurora (Buyer)</option>
+          </select>
+        </div>
+        <div class="form-group" id="farmerFields">
+          <label class="form-label">Primary Product</label>
+          <select class="form-select">
+            <option value="">Select your main product...</option>
+            <option>Coconut / VCO</option>
+            <option>Rice / Palay</option>
+            <option>Abaca / Fiber</option>
+            <option>Fish / Seafood</option>
+            <option>Banana / Fruits</option>
+            <option>Root Crops (Cassava, Camote)</option>
+            <option>Vegetables</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message (optional)</label>
+          <textarea class="form-textarea" placeholder="Tell us about your farm or what you're looking to buy..."></textarea>
+        </div>
+        <button type="button" class="form-submit" onclick="submitForm()">Register for Free ✓</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">Welcome to HarvestLink Aurora!</div>
+        <div class="success-desc">Thank you for registering. Our team in Baler will contact you within 24 hours to complete your onboarding. Check your SMS for a confirmation message.</div>
+      </div>
+    </div>
+    <div class="contact-info reveal">
+      <h3>Get in Touch</h3>
+      <p>Our field team is based in Baler and conducts regular visits across all 8 municipalities. We speak Tagalog and Ilocano.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail">
+          <strong>Main Office</strong>
+          Baler Commercial Center, Baler, Aurora 3200
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail">
+          <strong>Phone / Viber</strong>
+          +63 917 HARVEST (0917-427-8378)
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-detail">
+          <strong>Email</strong>
+          hello@harvestlinkaurora.ph
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div class="contact-detail">
+          <strong>Facebook</strong>
+          fb.com/HarvestLinkAurora
+        </div>
+      </div>
+
+      <div class="coverage-map">
+        <div class="coverage-title">📡 Service Coverage</div>
+        <div class="muni-grid">
+          <div class="muni-item"><div class="muni-dot t1"></div>Baler — 4G Live</div>
+          <div class="muni-item"><div class="muni-dot t1"></div>Dipaculao — 4G Live</div>
+          <div class="muni-item"><div class="muni-dot t2"></div>Maria Aurora — 3G</div>
+          <div class="muni-item"><div class="muni-dot t2"></div>San Luis — 3G</div>
+          <div class="muni-item"><div class="muni-dot t3"></div>Casiguran — SMS</div>
+          <div class="muni-item"><div class="muni-dot t3"></div>Dingalan — SMS</div>
+          <div class="muni-item"><div class="muni-dot t3"></div>Dilasag — SMS</div>
+          <div class="muni-item"><div class="muni-dot t3"></div>Dinalongan — SMS</div>
+        </div>
+        <div style="font-size: 11px; color: var(--text-light); margin-top: 10px; display: flex; gap: 16px;">
+          <span><span style="color: var(--green-mid);">●</span> Full App</span>
+          <span><span style="color: var(--amber);">●</span> Limited</span>
+          <span><span style="color: var(--green-pale); -webkit-text-stroke: 0.5px var(--green-light);">●</span> SMS Only</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration:none;">
+        <div class="nav-logo-icon">🌿</div>
+        <div>
+          <span class="nav-logo-text">HarvestLink</span>
+          <span class="nav-logo-sub">Aurora Province</span>
+        </div>
+      </a>
+      <p class="footer-desc">Connecting Aurora's farmers and fisherfolk directly to markets across the Philippines. Empowering communities through technology since 2026.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#marketplace">Browse Produce</a>
+      <a href="#how">How It Works</a>
+      <a href="#register">Sell on HarvestLink</a>
+      <a href="#">Download App</a>
+    </div>
+    <div class="footer-col">
+      <h4>Farmers</h4>
+      <a href="#farmers">Farmer Benefits</a>
+      <a href="#">Logistics Guide</a>
+      <a href="#">Price Calculator</a>
+      <a href="#">Typhoon Alerts</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Feasibility Study</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#register">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HarvestLink Agri-Tech Solutions. Baler, Aurora, Philippines.</span>
+    <span class="footer-tagline">🌾 From Aurora's fields to your table.</span>
+  </div>
+</footer>
+
+<!-- CART TOAST -->
+<div class="cart-toast" id="cartToast">
+  <span>🛒</span>
+  <span id="cartMsg">Added to cart!</span>
+</div>
+
+<script>
+// ── Products Data ──
+const products = [
+  { name: "Virgin Coconut Oil", farmer: "Mang Berto · Casiguran", price: "₱320", unit: "/bottle", emoji: "🥥", bg: "bg1", badge: "organic", filter: "casiguran" },
+  { name: "Fresh Yellowfin Tuna", farmer: "Kuya Rene · Baler", price: "₱200", unit: "/kg", emoji: "🐟", bg: "bg3", badge: "fresh", filter: "baler" },
+  { name: "Sinandomeng Rice", farmer: "Lola Nene · Dipaculao", price: "₱52", unit: "/kg", emoji: "🌾", bg: "bg5", badge: "fresh", filter: "dipaculao" },
+  { name: "Abaca Fiber (Raw)", farmer: "Mang Totoy · Dingalan", price: "₱75", unit: "/kg", emoji: "🪢", bg: "bg2", badge: "new", filter: "dingalan" },
+  { name: "Latundan Banana", farmer: "Ate Josie · Casiguran", price: "₱28", unit: "/kg", emoji: "🍌", bg: "bg4", badge: "fresh", filter: "casiguran" },
+  { name: "Sweet Potato (Camote)", farmer: "Nay Cora · Dipaculao", price: "₱35", unit: "/kg", emoji: "🍠", bg: "bg6", badge: "organic", filter: "dipaculao" },
+];
+
+const badgeColors = {
+  fresh: "badge-fresh",
+  organic: "badge-organic",
+  new: "badge-new"
+};
+
+function renderProducts(filter = "all") {
+  const grid = document.getElementById("productsGrid");
+  const filtered = filter === "all" ? products : products.filter(p => p.filter === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-img ${p.bg}">${p.emoji}</div>
+      <div class="product-body">
+        <span class="product-badge ${badgeColors[p.badge]}">${p.badge}</span>
+        <div class="product-name">${p.name}</div>
+        <div class="product-farmer">📍 ${p.farmer}</div>
+        <div class="product-footer">
+          <div class="product-price">${p.price}<span class="product-unit">${p.unit}</span></div>
+          <button class="product-btn" onclick="addToCart('${p.name}')">+</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+renderProducts();
+
+// Filter tabs
+document.getElementById("filterTabs").addEventListener("click", e => {
+  const btn = e.target.closest(".filter-tab");
+  if (!btn) return;
+  document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+  btn.classList.add("active");
+  renderProducts(btn.dataset.filter);
+});
+
+// ── Cart Toast ──
+let toastTimer;
+function addToCart(name) {
+  const toast = document.getElementById("cartToast");
+  document.getElementById("cartMsg").textContent = `${name} added to cart!`;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+// ── Income Calculator ──
+const products_calc = ["Coconut", "Rice", "Abaca", "Tuna", "Banana"];
+const pricePerKg    = [30, 22, 68, 200, 25];
+const middlemanRate = [0.6, 0.7, 0.65, 0.6, 0.62];
+
+function updateCalc() {
+  const vol = +document.getElementById("volSlider").value;
+  const prodIdx = +document.getElementById("prodSlider").value;
+  const pkgs = pricePerKg[prodIdx];
+  const hlIncome = vol * pkgs;
+  const mmIncome = Math.round(hlIncome * middlemanRate[prodIdx]);
+  const gain = Math.round(((hlIncome - mmIncome) / mmIncome) * 100);
+
+  document.getElementById("volVal").textContent = vol;
+  document.getElementById("prodVal").textContent = products_calc[prodIdx];
+  document.getElementById("calcResult").textContent = "₱" + hlIncome.toLocaleString();
+  document.getElementById("hlIncome").textContent = "₱" + hlIncome.toLocaleString();
+  document.getElementById("mmIncome").textContent = "₱" + mmIncome.toLocaleString();
+  document.getElementById("gainPct").textContent = "+" + gain + "%";
+  document.querySelector(".calc-result-sub").textContent = "vs. ₱" + mmIncome.toLocaleString() + " through middlemen";
+}
+
+document.getElementById("volSlider").addEventListener("input", updateCalc);
+document.getElementById("prodSlider").addEventListener("input", updateCalc);
+
+// ── Role Selector ──
+function selectRole(role, el) {
+  document.querySelectorAll(".role-option").forEach(r => r.classList.remove("selected"));
+  el.classList.add("selected");
+}
+
+// ── Form Submit ──
+function submitForm() {
+  document.getElementById("registerForm").style.display = "none";
+  document.getElementById("successMsg").classList.add("show");
+  window.scrollTo({ top: document.getElementById("register").offsetTop, behavior: "smooth" });
+}
+
+// ── Nav scroll ──
+window.addEventListener("scroll", () => {
+  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 20);
+});
+
+// ── Mobile nav ──
+document.getElementById("navToggle").addEventListener("click", () => {
+  document.getElementById("navLinks").classList.toggle("open");
+});
+
+// ── Reveal on scroll ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("visible"); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
